@@ -1,7 +1,8 @@
 <?php
 
-use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\Auth\RegisteredUserController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\ProfileController;
 
 /*
 |--------------------------------------------------------------------------
@@ -29,3 +30,8 @@ Route::middleware('auth')->group(function () {
 });
 
 require __DIR__.'/auth.php';
+
+//rutas para seleccionar país, departamento, ciudad
+Route::get('dependent-dropdown', [RegisteredUserController::class, 'index']);
+Route::post('api/fetch-states', [RegisteredUserController::class, 'fetchState']);
+Route::post('api/fetch-cities', [RegisteredUserController::class, 'fetchCity']);
