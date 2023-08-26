@@ -1,8 +1,9 @@
 <?php
 
-use App\Http\Controllers\Auth\RegisteredUserController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\UserController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\Auth\RegisteredUserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -35,3 +36,8 @@ require __DIR__.'/auth.php';
 Route::get('dependent-dropdown', [RegisteredUserController::class, 'index']);
 Route::post('api/fetch-states', [RegisteredUserController::class, 'fetchState']);
 Route::post('api/fetch-cities', [RegisteredUserController::class, 'fetchCity']);
+
+//ruta del listado de usuarios solo para el administrador
+Route::middleware(['auth', 'role:admin'])->group(function () {
+    Route::resource('users', UserController::class);
+});
