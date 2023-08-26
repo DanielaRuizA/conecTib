@@ -78,7 +78,7 @@ class RegisteredUserController extends Controller
             'phone'=>$request->phone,
             'identification_number'=>$request->identification_number,
             'date_of_birth'=>$request->date_of_birth,
-            // 'city_code'=>$request->city_code,
+            'city_code'=>$request->city_code,
             // 'country_id' => $request->country_id,
             // 'state_id' => $request->state_id,
             'city_id' => $request->city_id,
@@ -91,62 +91,3 @@ class RegisteredUserController extends Controller
         return redirect(RouteServiceProvider::HOME);
     }
 }
-
-// namespace App\Http\Controllers\Auth;
-
-// use App\Models\User;
-// use Illuminate\View\View;
-// use Illuminate\Http\Request;
-// use Illuminate\Support\Carbon;
-// use Illuminate\Validation\Rules;
-// use App\Http\Controllers\Controller;
-// use Illuminate\Support\Facades\Auth;
-// use Illuminate\Support\Facades\Hash;
-// use Illuminate\Http\RedirectResponse;
-// use Illuminate\Auth\Events\Registered;
-// use App\Providers\RouteServiceProvider;
-// use Illuminate\Validation\Rules\Password;
-
-// class RegisteredUserController extends Controller
-// {
-//     /**
-//      * Display the registration view.
-//      */
-//     public function create(): View
-//     {
-//         return view('auth.register');
-//     }
-
-//     /**
-//      * Handle an incoming registration request.
-//      *
-//      * @throws \Illuminate\Validation\ValidationException
-//      */
-//     public function store(Request $request): RedirectResponse
-//     {
-//         //validación del formulario del registro de usuario
-//         $request->validate([
-//             'name' => ['required', 'string', 'max:100'],
-//             'email' => ['required', 'string', 'email', 'max:255', 'unique:'.User::class],
-//             'password' => ['required','confirmed', Rules\Password::defaults(), Password::min(8)
-//             ->numbers()
-//             ->mixedCase()
-//             ->symbols()],
-//             'phone' => ['numeric', 'digits:10'],
-//             'identification_number' =>['required', 'max:11'],
-//             'date_of_birth' => ['required', 'date', 'before:' . Carbon::now()->subYears(18)->format('Y-m-d')],
-//         ]);
-
-//         $user = User::create([
-//             'name' => $request->name,
-//             'email' => $request->email,
-//             'password' => Hash::make($request->password),
-//         ]);
-
-//         event(new Registered($user));
-
-//         Auth::login($user);
-
-//         return redirect(RouteServiceProvider::HOME);
-//     }
-// }
