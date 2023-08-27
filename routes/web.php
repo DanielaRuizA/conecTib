@@ -1,5 +1,9 @@
 <?php
 
+use App\Http\Controllers\Auth\RegisteredUserController;
+use App\Http\Controllers\PostController;
+use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -16,3 +20,26 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::get('/dashboard', function () {
+    return view('dashboard');
+})->middleware(['auth', 'verified'])->name('dashboard');
+
+Route::middleware('auth')->group(function () {
+    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+});
+
+require __DIR__.'/auth.php';
+
+//rutas para seleccionar país, departamento, ciudad.
+Route::get('dependent-dropdown', [RegisteredUserController::class, 'index']);
+Route::post('api/fetch-states', [RegisteredUserController::class, 'fetchState']);
+Route::post('api/fetch-cities', [RegisteredUserController::class, 'fetchCity']);
+
+//ruta con el listado de usuarios, solo puede acceder el administrador.
+Route::resource('users', UserController::class)->middleware(['auth', 'role:admin']);
+
+//ruta de los post que solo se puede acceder si se esta registrado.
+Route::get('posts', [PostController::class, 'index'])->middleware('auth')->name('posts.index');

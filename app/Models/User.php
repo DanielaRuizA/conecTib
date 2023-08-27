@@ -6,22 +6,33 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Kyslik\ColumnSortable\Sortable;
 use Laravel\Sanctum\HasApiTokens;
+use Spatie\Permission\Traits\HasRoles;
 
 class User extends Authenticatable
 {
-    use HasApiTokens, HasFactory, Notifiable;
+    use HasApiTokens, HasFactory, Notifiable, HasRoles;
 
     /**
      * The attributes that are mass assignable.
      *
      * @var array<int, string>
      */
+    use Sortable;
+
     protected $fillable = [
         'name',
         'email',
         'password',
+        'phone',
+        'identification_number',
+        'date_of_birth',
+        'city_code',
     ];
+
+    //el sortable es para ordenar las filas
+    public $sortable = ['id', 'name', 'email', 'phone', 'identification_number', 'date_of_birth', 'city_code'];
 
     /**
      * The attributes that should be hidden for serialization.
@@ -42,4 +53,20 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
+
+    //la relación que tiene el modelo user con country, state y city
+    public function country()
+    {
+        return $this->belongsTo(Country::class);
+    }
+
+    public function state()
+    {
+        return $this->belongsTo(State::class);
+    }
+
+    public function city()
+    {
+        return $this->belongsTo(City::class);
+    }
 }
