@@ -6,9 +6,9 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Kyslik\ColumnSortable\Sortable;
 use Laravel\Sanctum\HasApiTokens;
 use Spatie\Permission\Traits\HasRoles;
-use Kyslik\ColumnSortable\Sortable;
 
 class User extends Authenticatable
 {
@@ -19,9 +19,8 @@ class User extends Authenticatable
      *
      * @var array<int, string>
      */
-
     use Sortable;
-    
+
     protected $fillable = [
         'name',
         'email',
@@ -33,7 +32,7 @@ class User extends Authenticatable
     ];
 
     //el sortable es para ordenar las filas
-    public $sortable = ['id', 'name', 'email', 'phone', 'identification_number', 'date_of_birth','city_code'];
+    public $sortable = ['id', 'name', 'email', 'phone', 'identification_number', 'date_of_birth', 'city_code'];
 
     /**
      * The attributes that should be hidden for serialization.

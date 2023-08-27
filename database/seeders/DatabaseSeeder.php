@@ -5,8 +5,8 @@ namespace Database\Seeders;
 use App\Models\City;
 use App\Models\Country;
 use App\Models\State;
-use Illuminate\Database\Seeder;
 use App\Models\User;
+use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
 {
@@ -17,24 +17,26 @@ class DatabaseSeeder extends Seeder
     {
         $this->call(RoleSeeder::class);
 
+        //datos del administrador para iniciar sesión
         User::factory()->create([
-        'name' => 'admi1',
-        'email' => 'i@admin.com',
-        'password' => bcrypt('123456'),
+            'name' => 'administrador',
+            'email' => 'conectib@admin.com',
+            'password' => bcrypt('Ab@12345678'),
         ])->assignRole('admin');
-        
-        User::factory(100)->create();
-        
 
+        //crear 100 usuarios
+        User::factory(100)->create();
+
+        //para que se creen las ciudades, departamentos y ciudades.
         $countries = Country::factory(50)->create();
 
         foreach ($countries as $country) {
-            $states = State::factory(2)->create([
+            $states = State::factory(10)->create([
                 'country_id' => $country->id,
             ]);
 
             foreach ($states as $state) {
-                City::factory(1)->create([
+                City::factory(15)->create([
                     'state_id' => $state->id,
                 ]);
             }

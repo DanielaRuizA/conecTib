@@ -13,7 +13,7 @@ class RoleSeeder extends Seeder
      */
     public function run(): void
     {
-        Permission::create(['name' => 'dashboard']);
+        //permisos que tiene el administrador
         Permission::create(['name' => 'users.index']);
         Permission::create(['name' => 'users.show']);
         Permission::create(['name' => 'users.edit']);

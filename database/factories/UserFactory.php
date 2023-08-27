@@ -25,11 +25,8 @@ class UserFactory extends Factory
             'remember_token' => Str::random(10),
             'phone' => fake()->randomNumber(5, true),
             'identification_number' => fake()->randomNumber(7, true),
-            'date_of_birth' => fake()->date(),
+            'date_of_birth' => $this->faker->dateTimeBetween('-99years', '-18 years'),
             'city_code' => fake()->randomNumber(6, true),
-            // 'country_id'=> fake()->numberBetween(1, 50),
-            // 'state_id'=>fake()->numberBetween(1, 100),
-            // 'city_id'=>fake()->numberBetween(1, 150),
         ];
     }
 

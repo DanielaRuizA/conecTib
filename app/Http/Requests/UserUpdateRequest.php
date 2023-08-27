@@ -2,8 +2,8 @@
 
 namespace App\Http\Requests;
 
-use Illuminate\Support\Carbon;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Carbon;
 
 class UserUpdateRequest extends FormRequest
 {
@@ -25,9 +25,9 @@ class UserUpdateRequest extends FormRequest
         //reglas de validación para actualizar un registro
         return [
             'name' => ['required', 'string', 'max:100'],
-            'phone'  => ['numeric', 'digits:10', 'nullable'],
-            'date_of_birth' => ['required', 'date', 'before:' . Carbon::now()->subYears(18)->format('Y-m-d')],
-            'city_code' =>['required','numeric','digits:6'],
+            'phone' => ['numeric', 'digits:10', 'nullable'],
+            'date_of_birth' => ['required', 'date', 'before:'.Carbon::now()->subYears(18)->format('Y-m-d')],
+            'city_code' => ['required', 'numeric', 'digits:6'],
         ];
     }
 }
