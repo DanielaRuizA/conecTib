@@ -52,11 +52,11 @@ class RegisteredUserController extends Controller
         $validator = Validator::make($request->all(), [
             'name' => ['required', 'string', 'max:100'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:'.User::class],
-            'password' => ['required','confirmed', Rules\Password::defaults(), Password::min(8)
+            'password' => ['required','confirmed', Password::defaults(), Password::min(8)
                 ->numbers()
                 ->mixedCase()
                 ->symbols()],
-            'phone' => ['numeric', 'digits:10'],
+            'phone' => ['numeric', 'digits:10', 'nullable'],
             'identification_number' => ['required', 'max:11'],
             'date_of_birth' => ['required', 'date', 'before:' . Carbon::now()->subYears(18)->format('Y-m-d')],
             // 'country' => ['required', 'exists:countries,id'],

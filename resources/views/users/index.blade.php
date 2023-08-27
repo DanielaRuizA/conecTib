@@ -9,20 +9,21 @@
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <header class="px-6 py-4 flex justify-between items-center">
-                    <div class="relative max-w-xs">
+                    <div class="relative max-w-xs flex items-center">
                         <form action="{{ route('users.index') }}" method="GET">
-                            <label for="search" class="sr-only">
-                                Search
-                            </label>
-                            <input type="text" name="s"
-                                class="block w-full p-3 pl-10 text-sm border-gray-200 rounded-md focus:border-blue-500 focus:ring-blue-500 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400"
-                                placeholder="Search..." />
-                            <div class="absolute inset-y-0 left-0 flex items-center pl-4 pointer-events-none">
-                                <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-gray-400" fill="none"
-                                    viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                                    <path stroke-linecap="round" stroke-linejoin="round"
-                                        d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-                                </svg>
+                            <div class="flex items-center">
+                                <input type="text" name="s"
+                                    class="block w-full px-4 pl-10 text-sm border-gray-200 rounded-md focus:border-blue-500 focus:ring-blue-500 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400"
+                                    placeholder="Buscar..." value="{{ request('s') }}" />
+                                <div class="absolute inset-y-0 left-0 flex items-center pl-4 pointer-events-none">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-gray-400" fill="none"
+                                        viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                        <path stroke-linecap="round" stroke-linejoin="round"
+                                            d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                                    </svg>
+                                </div>
+                                <button type="submit"
+                                    class="px-2 bg-gray-800 text-white rounded px-4 py-2">Buscar</button>
                             </div>
                         </form>
                     </div>
@@ -57,17 +58,17 @@
                                         class="text-m leading-4 font-medium text-gray-500 uppercase tracking-wider">@sortablelink(
                                         'identification_number','Cédula')</span>
                                 </th>
-                                <th class="px-6 py-3 bg-gray-50 text-left">
+                                <th class="px-5 py-3 bg-gray-50">
                                     <span
                                         class="text-m leading-4 font-medium text-gray-500 uppercase tracking-wider">@sortablelink(
                                         'date_of_birth','Edad')</span>
                                 </th>
-                                <th class="px-3 py-3 bg-gray-50 text-left">
+                                <th class="px-4 py-3 bg-gray-50 text-left">
                                     <span
                                         class="text-m leading-4 font-medium text-gray-500 uppercase tracking-wider">@sortablelink(
                                         'city_code','Código Ciudad')</span>
                                 </th>
-                                <th class="px-6 py-3 bg-gray-50 text-left">
+                                <th class="px-3 bg-gray-50 text-left">
                                     <span class="text-m leading-4 font-medium text-gray-500 uppercase tracking-wider">
                                         Editar</span>
                                 </th>
@@ -91,8 +92,7 @@
                                 <td class="px-6 py-4 whitespace-no-wrap text-sm leading-5 text-gray-900">{{
                                     $user->identification_number}}
                                 </td>
-                                <td class="px-6 py-4 whitespace-no-wrap text-sm leading-5 text-gray-900">{{
-                                    $user->date_of_birth}}
+                                <td class="px-6 py-4 whitespace-no-wrap text-sm leading-5 text-gray-900">
                                     @php
                                     $dob = new DateTime($user->date_of_birth);
                                     $now = new DateTime();
@@ -102,8 +102,9 @@
                                 </td>
                                 <td class="px-6 py-4 whitespace-no-wrap text-sm leading-5 text-gray-900">{{
                                     $user->city_code}}</td>
-                                <td class="px-6 py-4">
-                                    <a href="{{ route('users.edit', $user) }}" class="text-indigo-600">Editar</a>
+                                <td class="px-3">
+                                    <a href="{{ route('users.edit', $user) }}"
+                                        class=" bg-gray-800 text-white rounded px-4 py-2">Editar</a>
                                 </td>
                                 <td class="px-6 py-4">
                                     <form action="{{ route('users.destroy', $user) }}" method="POST">

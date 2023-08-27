@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\PostController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\Auth\RegisteredUserController;
@@ -32,12 +33,17 @@ Route::middleware('auth')->group(function () {
 
 require __DIR__.'/auth.php';
 
-//rutas para seleccionar país, departamento, ciudad
+//rutas para seleccionar país, departamento, ciudad.
 Route::get('dependent-dropdown', [RegisteredUserController::class, 'index']);
 Route::post('api/fetch-states', [RegisteredUserController::class, 'fetchState']);
 Route::post('api/fetch-cities', [RegisteredUserController::class, 'fetchCity']);
 
-//ruta del listado de usuarios solo para el administrador
-Route::middleware(['auth', 'role:admin'])->group(function () {
-    Route::resource('users', UserController::class);
-});
+//ruta con el listado de usuarios, solo puede acceder el administrador.
+Route::resource('users', UserController::class)->middleware(['auth', 'role:admin']);
+
+// Route::middleware(['auth', 'role:admin'])->group(function () {
+//     Route::resource('users', UserController::class);
+// });
+
+//ruta de los post que solo se puede acceder si se esta registrado.
+Route::get('posts', [PostController::class, 'index'])->middleware('auth')->name('posts.index');

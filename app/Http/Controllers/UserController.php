@@ -8,22 +8,6 @@ use Illuminate\Support\Carbon;
 
 class UserController extends Controller
 {
-    // public function index(Request $request)
-    // {
-    //     $users = User::latest()->where('id', '!=', auth()->id())
-    //     ->where(function ($query) use ($request) {
-    //         if ($s = $request->s) {
-    //             $query->orWhere('id', 'LIKE', '%' . $s . '%')
-    //                 ->orWhere('name', 'LIKE', '%' . $s . '%')
-    //                 ->orWhere('email', 'LIKE', '%' . $s . '%')
-    //                 ->orWhere('identification_number', 'LIKE', '%' . $s . '%')
-    //                 ->orWhere('phone', 'LIKE', '%' . $s . '%');
-    //         }
-    //     })->paginate(20, ['id', 'name', 'email', 'phone', 'identification_number', 'date_of_birth', 'city_code']);
-
-    //     return view('users.index', compact('users'));
-    // }
-
     public function index(Request $request)
     {
         $s = $request->input('s');
