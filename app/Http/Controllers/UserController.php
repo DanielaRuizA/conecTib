@@ -4,12 +4,13 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Http\Request;
-use Illuminate\Support\Carbon;
+use App\Http\Requests\UserUpdateRequest;
 
 class UserController extends Controller
 {
     public function index(Request $request)
     {
+        //controlador para la lista de todos los usuarios, con el buscador, sortable para ordenar las columnas y la paginacion de 20 registros por pagina.
         $s = $request->input('s');
 
         $users = User::where('id', '!=', auth()->id())
@@ -19,7 +20,8 @@ class UserController extends Controller
                         ->orWhere('name', 'LIKE', '%' . $s . '%')
                         ->orWhere('email', 'LIKE', '%' . $s . '%')
                         ->orWhere('identification_number', 'LIKE', '%' . $s . '%')
-                        ->orWhere('phone', 'LIKE', '%' . $s . '%');
+                        ->orWhere('phone', 'LIKE', '%' . $s . '%')
+                        ->orWhere('city_code', 'LIKE', '%' . $s . '%');
                 }
             })->sortable()->paginate(20, ['id', 'name', 'email', 'phone', 'identification_number', 'date_of_birth', 'city_code']);
 
@@ -30,30 +32,21 @@ class UserController extends Controller
 
     public function edit(User $user)
     {
+        //la vista de la edición de usuario
         return view('users.edit', compact('user'));
     }
 
-    public function update(Request $request, User $user)
+    public function update(UserUpdateRequest $request, User $user)
     {
-        $request->validate([
-            'name' => ['required', 'string', 'max:100'],
-            'phone'  => ['numeric', 'digits:10'],
-            'date_of_birth' => ['required', 'date', 'before:' . Carbon::now()->subYears(18)->format('Y-m-d')],
-            'city_code' =>['required','numeric','digits:6'],
-        ]);
+        //las reglas de validación se encuentran en el archivo UserUpdateRequest
+        $user->update($request->validated());
 
-        $user->update([
-            'name' =>$request->name ,
-            'phone'  =>$request->phone ,
-            'date_of_birth' => $request->date_of_birth,
-            'city_code' =>$request->city_code,
-        ]);
-
-        return redirect()->route('users.edit', $user);
+        return redirect()->route('users.index');
     }
 
     public function destroy(User $user)
     {
+        //destruir un registro de la tabla users
         $user->delete();
 
         return back();

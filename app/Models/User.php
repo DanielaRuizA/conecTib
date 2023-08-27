@@ -32,6 +32,7 @@ class User extends Authenticatable
         'city_code',
     ];
 
+    //el sortable es para ordenar las filas
     public $sortable = ['id', 'name', 'email', 'phone', 'identification_number', 'date_of_birth','city_code'];
 
     /**
@@ -54,6 +55,7 @@ class User extends Authenticatable
         'password' => 'hashed',
     ];
 
+    //la relación que tiene el modelo user con country, state y city
     public function country()
     {
         return $this->belongsTo(Country::class);

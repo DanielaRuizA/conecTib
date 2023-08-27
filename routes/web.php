@@ -41,9 +41,5 @@ Route::post('api/fetch-cities', [RegisteredUserController::class, 'fetchCity']);
 //ruta con el listado de usuarios, solo puede acceder el administrador.
 Route::resource('users', UserController::class)->middleware(['auth', 'role:admin']);
 
-// Route::middleware(['auth', 'role:admin'])->group(function () {
-//     Route::resource('users', UserController::class);
-// });
-
 //ruta de los post que solo se puede acceder si se esta registrado.
 Route::get('posts', [PostController::class, 'index'])->middleware('auth')->name('posts.index');

@@ -9,6 +9,7 @@ class PostController extends Controller
 {
     public function index(Request $request)
     {
+        //controlador para llamar la api y el buscador del userId
         $search = $request->input('search');
 
         $data = Http::get('https://jsonplaceholder.typicode.com/posts')->json();
